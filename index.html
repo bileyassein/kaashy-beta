@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kaashy - Digital Finance Simplified | Beta App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Add Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="favicon_io/site.webmanifest">
+    <link rel="icon" type="image/x-icon" href="favicon_io/favicon.ico">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #7600c0;
+            --secondary-color: #2c3e50;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --text-gray: #6c757d;
+            --gradient: linear-gradient(135deg, #7600c0 0%, #9b59b6 100%);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--secondary-color);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Hero Section */
+        .hero {
+            background: var(--gradient);
+            color: var(--white);
+            padding: 60px 0 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="white" stop-opacity="0.1"/><stop offset="100%" stop-color="white" stop-opacity="0"/></radialGradient></defs><circle cx="200" cy="200" r="300" fill="url(%23a)"/><circle cx="800" cy="600" r="200" fill="url(%23a)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .call-to-action {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .call-to-action a {
+            margin-top: 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            animation: bounceIn 1s ease-out;
+        }
+
+        .tagline {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .download-btn {
+            background: var(--white);
+            color: var(--primary-color);
+            padding: 18px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            animation: fadeInUp 1s ease-out 0.6s both;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            background: #f8f9fa;
+        }
+
+        .beta-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 20px;
+            animation: fadeInUp 1s ease-out 0.9s both;
+        }
+
+        /* Sections */
+        section {
+            padding: 60px 0;
+        }
+
+        .section-alt {
+            background: var(--light-gray);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            margin-bottom: 50px;
+        }
+
+        /* About Section */
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 30px 20px;
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        /* Disclaimer */
+        .disclaimer {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 40px auto;
+            max-width: 800px;
+        }
+
+        .disclaimer h3 {
+            color: #856404;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .disclaimer ul {
+            color: #856404;
+            margin-left: 20px;
+        }
+
+        /* Installation Guide */
+        .install-steps {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .install-steps ol {
+            counter-reset: step-counter;
+            list-style: none;
+        }
+
+        .install-steps li {
+            counter-increment: step-counter;
+            margin-bottom: 20px;
+            padding-left: 60px;
+            position: relative;
+            font-size: 1.1rem;
+        }
+
+        .install-steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: var(--gradient);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        /* Info Boxes */
+        .info-box {
+            background: var(--white);
+            border-left: 4px solid var(--primary-color);
+            padding: 25px;
+            border-radius: 8px;
+            margin: 30px 0;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+        }
+
+        .info-box h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Contact Section */
+        .contact-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+
+        .contact-btn {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-btn:hover {
+            background: #5c0099;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary-color);
+            color: var(--white);
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--white);
+            transition: transform 0.3s ease;
+        }
+
+        .social-link:hover {
+            transform: scale(1.1);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 40px 0 60px;
+            }
+
+            .logo h1 {
+                font-size: 2rem;
+            }
+
+            .tagline {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+
+            section {
+                padding: 40px 0;
+            }
+
+            .install-steps li {
+                padding-left: 50px;
+            }
+
+            .contact-methods {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <img src="assets/logoFull white.svg" alt="Kaashy Logo" style="width: 80%; height: 80%; object-fit: cover;">
+                    </div>
+                </div>
+                <p class="tagline">Digital Finance Simplified - One App, All Your Money</p>
+                <div class="call-to-action">
+                    <div class="beta-badge">🚀 Now in Beta Testing</div>
+                    <a href="https://appdistribution.firebase.google.com/pub/i/dc94f51068841d8f" class="download-btn">
+                        <i class="fa-solid fa-download" style="color: var(--primary-color);"></i>
+                        Download APK
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section>
+        <div class="container">
+            <h2 class="section-title fade-in">Simplify Your Digital Finance</h2>
+            <div class="about-content fade-in">
+                <p>Kaashy is a revolutionary fiat swap startup that transforms how you manage your digital finances. We unify mobile money and bank wallets into one seamless app experience, complete with our own secure in-app wallet where you can easily save, send, and receive money.</p>
+            </div>
+            
+            <div class="features">
+                <div class="feature fade-in">
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-wallet fa-2x" style="color:#fff;"></i>
+                    </div>
+                    <h3>Unified Wallets</h3>
+                    <p>Connect all your mobile money and bank accounts in one secure platform</p>
+                </div>
+                
+                <div class="feature fade-in">
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-money-bill-transfer fa-2x" style="color:#fff;"></i>
+                    </div>
+                    <h3>Easy Transactions</h3>
+                    <p>Send, receive, and save money with just a few taps</p>
+                </div>
+                
+                <div class="feature fade-in">
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-lock fa-2x" style="color:#fff;"></i>
+                    </div>
+                    <h3>Secure & Safe</h3>
+                    <p>Advanced security features keep your money and data protected</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Disclaimer Section -->
+    <section class="section-alt">
+        <div class="container">
+            <div class="disclaimer fade-in">
+                <h3>
+                    <i class="fa-solid fa-triangle-exclamation" style="color:#856404;"></i>
+                    Disclaimer
+                </h3>
+                <p><strong>Kaashy is currently in beta testing.</strong> By downloading and using this app, you agree that:</p>
+                <ul>
+                    <li>The app may contain bugs or unfinished features.</li>
+                    <li>Your usage data may be collected for testing and improvement purposes.</li>
+                    <li>Kaashy will not be held responsible for any data loss or errors during testing.</li>
+                    <li>Do not share or distribute the APK without permission.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Installation Guide -->
+    <section id="installation">
+        <div class="container">
+            <h2 class="section-title fade-in">Installation Guide</h2>
+            <div class="install-steps fade-in">
+                <ol>
+                    <li>Tap the <strong>Download APK</strong> button above.</li>
+                    <li>Submit your <strong>Gmail</strong> address to us (you'll receive a Firebase invite).</li>
+                    <li>Go to your email inbox and open the invitation email from <strong>Firebase App Distribution</strong>.</li>
+                    <li>Tap the invitation link and follow the steps to download and install the app securely.</li>
+                    <li>If installation is blocked, enable <strong>"Install from unknown sources"</strong> in your device settings.</li>
+                    <li>Once the app is installed, open it and register using your <strong>phone number</strong>.</li>
+                    <li>If your browser prompts you, allow the download.</li>
+                </ol>
+                
+                <div class="info-box">
+                    <h3>💡 Important Note</h3>
+                    <p>During registration in the app, your WhatsApp number is required so we can notify you about updates, bugs, or important news related to the beta.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Email & WhatsApp Info -->
+    <!-- <section class="section-alt">
+        <div class="container">
+            <div class="info-box fade-in">
+                <h3>
+                    <i class="fa-solid fa-envelope" style="color:#fff;"></i>
+                    Email Required for Beta Access
+                </h3>
+                <p>To access Kaashy through Firebase App Distribution, we need your email address.</p>
+                <p>This email must be:</p>
+                <ul>
+                    <li>A <strong>Gmail address</strong> (for Firebase access)</li>
+                    <li>The same one you use to sign into Google Play Store (optional but ideal)</li>
+                </ul>
+                <p>You'll receive an <strong>invitation link</strong> from Firebase to download the app securely.</p>
+            </div>
+
+            <div class="info-box fade-in">
+                <h3>
+                    <i class="fa-brands fa-whatsapp" style="color:#fff;"></i>
+                    Why We Ask for Your WhatsApp Number
+                </h3>
+                <p>📲 We require your WhatsApp number during sign-up so that:</p>
+                <ul>
+                    <li>We can notify you when a <strong>new version</strong> is available</li>
+                    <li>Send important <strong>update instructions or bug fixes</strong></li>
+                    <li>Collect <strong>feedback</strong> or bug reports more easily</li>
+                </ul>
+                <p>Your number will <strong>not</strong> be shared publicly or used for spam. You may opt-out of future messages by contacting us.</p>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- Contact Section -->
+    <section>
+        <div class="container">
+            <h2 class="section-title fade-in">Get Beta Access</h2>
+            <p class="section-subtitle fade-in">Ready to join the beta? Get in touch with us through your preferred method</p>
+            
+            <div class="contact-methods">
+                <div class="contact-card fade-in">
+                    <div class="contact-icon">
+                        <i class="fa-solid fa-envelope fa-2x" style="color:#fff;"></i>
+                    </div>
+                    <h3>Email Us</h3>
+                    <p>Send us your Gmail address to receive a Firebase invitation</p>
+                    <a href="mailto:beta@kaashy.com?subject=Beta Access Request&body=Hi! I'd like to join the Kaashy beta. My Gmail address is: " class="contact-btn">Send Email</a>
+                </div>
+                
+                <div class="contact-card fade-in">
+                    <div class="contact-icon">
+                        <i class="fa-brands fa-whatsapp fa-2x" style="color:#fff;"></i>
+                    </div>
+                    <h3>WhatsApp</h3>
+                    <p>Message us on WhatsApp for quick access and updates</p>
+                    <a href="https://wa.me/1234567890?text=Hi! I'd like to join the Kaashy beta testing." class="contact-btn">Message Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <h3>Kaashy</h3>
+                    <p>Your all-in-one financial solution for mobile money, data bundles, and secure transactions.</p>
+                </div>
+                <div>
+                    <h4>Contact</h4>
+                    <p>beta@kaashy.com</p>
+                    <p>+252 (63) 4020560</p>
+                </div>
+                <div>
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="https://x.com/kaashy_app" class="social-link"><i class="fa-brands fa-x-twitter" style="color:#fff;"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=61575519325363" class="social-link"><i class="fa-brands fa-facebook" style="color:#fff;"></i></a>
+                        <a href="https://www.linkedin.com/company/kaashy-app/" class="social-link"><i class="fa-brands fa-linkedin" style="color:#fff;"></i></a>
+                        <a href="https://www.instagram.com/kaashy_app/" class="social-link"><i class="fa-brands fa-instagram" style="color:#fff;"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div style="border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px; margin-top: 30px;">
+                <p>&copy; 2025 Kaashy. All rights reserved. | Beta Version</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add loading animation to download button
+        const downloadBtn = document.querySelector('.download-btn');
+        downloadBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Add loading state
+            const originalText = this.innerHTML;
+            this.innerHTML = `
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="animation: spin 1s linear infinite;">
+                    <path d="M12,1A11,11,0,1,0,23,12,11,11,0,0,0,12,1Zm0,19a8,8,0,1,1,8-8A8,8,0,0,1,12,20Z" opacity=".25"/>
+                    <path d="M12,4a8,8,0,0,1,7.89,6.7A1.53,1.53,0,0,0,21.38,12h0a1.5,1.5,0,0,0,1.48-1.75,11,11,0,0,0-21.72,0A1.5,1.5,0,0,0,2.62,12h0a1.53,1.53,0,0,0,1.49-1.3A8,8,0,0,1,12,4Z"/>
+            `;
+            
+            // Simulate processing
+            setTimeout(() => {
+                this.innerHTML = originalText;
+                window.location.href = this.getAttribute('href');
+                }, 2000);
+        });
+
+        // Add hover effect to feature cards
+        const featureCards = document.querySelectorAll('.feature, .contact-card');
+        featureCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add CSS for spin animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+            
+            .feature, .contact-card {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            
+            .feature:hover, .contact-card:hover {
+                box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            const rate = scrolled * -0.5;
+            
+            if (hero) {
+                hero.style.transform = `translateY(${rate}px)`;
+            }
+        });
+
+        // Add dynamic text typing effect for tagline
+        const tagline = document.querySelector('.tagline');
+        const originalText = tagline.textContent;
+        tagline.textContent = '';
+        
+        let i = 0;
+        const typeWriter = () => {
+            if (i < originalText.length) {
+                tagline.textContent += originalText.charAt(i);
+                i++;
+                setTimeout(typeWriter, 50);
+            }
+        };
+        
+        // Start typing effect after page load
+        setTimeout(typeWriter, 1500);
+    </script>
+</body>
+</html>
